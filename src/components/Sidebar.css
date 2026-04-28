@@ -1,0 +1,183 @@
+:root {
+  --primary-green: #0a7a3f;
+  --dark-green: #065a30;
+  --text-light: rgba(255, 255, 255, 0.85);
+  --transition-speed: 0.3s;
+}
+
+/* 1. Base Sidebar Layout */
+.main-sidebar {
+  width: 270px;
+  height: 100vh;
+  background: linear-gradient(180deg, var(--primary-green), var(--dark-green));
+  color: #fff;
+  position: fixed;
+  left: 0;
+  top: 0;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+  font-family: 'Inter', sans-serif;
+  transition: width var(--transition-speed) ease;
+  z-index: 1000;
+}
+
+/* 2. Logo Section */
+.logo {
+  padding: 30px 20px;
+  font-size: 22px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: padding var(--transition-speed);
+}
+
+/* 3. Navigation Styling */
+.sidebar-nav {
+  padding: 20px 15px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav a,
+.treeview-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: var(--text-light);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all var(--transition-speed) ease;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+/* Icon Core Styling */
+.sidebar-nav a i,
+.treeview-header i:first-child {
+  width: 25px;
+  min-width: 25px; /* Ensures icon doesn't shrink */
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-nav a span,
+.treeview-header span {
+  flex: 1;
+  margin-left: 10px;
+  font-size: 15px;
+  white-space: nowrap; /* Prevents text wrapping during transition */
+}
+
+/* 4. Hover & Active States */
+.sidebar-nav a:hover,
+.treeview-header:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.sidebar-nav a.active {
+  background: #fff;
+  color: var(--primary-green);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 5. Treeview & Submenu */
+.arrow {
+  font-size: 12px;
+  transition: transform var(--transition-speed);
+}
+
+.treeview.is-open .arrow {
+  transform: rotate(90deg);
+}
+
+.submenu {
+  margin-left: 26px;
+  border-left: 1.5px solid rgba(255, 255, 255, 0.2);
+  padding-left: 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-speed) ease-in-out, opacity var(--transition-speed);
+  opacity: 0;
+}
+
+.treeview.is-open .submenu {
+  max-height: 200px;
+  opacity: 1;
+  margin-bottom: 10px;
+}
+
+.submenu li a i {
+  font-size: 8px !important;
+  opacity: 0.6;
+}
+
+/* 6. Logout Section */
+.logout-item {
+  margin-top: 50px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+}
+
+.logout-item a {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.logout-item a:hover {
+  background: #3035d6;
+  color: #fff;
+}
+
+/* 7. COLLAPSED STATE LOGIC */
+.main-sidebar.collapsed {
+  width: 75px;
+}
+
+.main-sidebar.collapsed .logo span,
+.main-sidebar.collapsed .sidebar-nav span,
+.main-sidebar.collapsed .arrow,
+.main-sidebar.collapsed .submenu {
+  display: none;
+}
+
+.main-sidebar.collapsed .logo {
+  padding: 30px 0;
+}
+
+.main-sidebar.collapsed .sidebar-nav a,
+.main-sidebar.collapsed .treeview-header {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.main-sidebar.collapsed .sidebar-nav a i,
+.main-sidebar.collapsed .treeview-header i:first-child {
+  margin: 0;
+}
+/* ================= MOBILE RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .main-sidebar {
+    position: fixed;
+    left: -270px;
+    top: 0;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+
+  .main-sidebar.mobile-open {
+    left: 0;
+  }
+
+  .main-sidebar.collapsed {
+    width: 270px; /* disable icon-only mode on mobile */
+  }
+}

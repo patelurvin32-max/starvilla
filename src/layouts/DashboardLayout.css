@@ -1,0 +1,108 @@
+.dashboard-layout {
+  display: flex;
+}
+
+/* ================= MAIN CONTENT ================= */
+.main-content {
+  flex: 1;
+  margin-left: 260px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+  min-height: 100vh;
+  background: #f4f6f9;
+}
+
+/* When sidebar collapsed */
+.main-content.collapsed {
+  margin-left: 70px;
+}
+
+/* ================= TOP BAR ================= */
+.topbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 0 16px;
+}
+
+.menu-btn {
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.logged-user {
+  margin-left: auto;
+  font-weight: 600;
+}
+
+/* ================= TABLET ================= */
+@media (max-width: 1024px) {
+  .main-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+  
+  .topbar {
+    padding: 0 12px;
+  }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 10px;
+    min-height: calc(100vh - 60px);
+  }
+
+  .main-content.collapsed {
+    margin-left: 0;
+  }
+  
+  .topbar {
+    height: 50px;
+    padding: 0 10px;
+    margin-bottom: 10px;
+  }
+  
+  .menu-btn {
+    font-size: 20px;
+    padding: 5px;
+  }
+
+  .logged-user {
+    font-size: 13px;
+    font-weight: 500;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 8px;
+  }
+  
+  .topbar {
+    height: 45px;
+  }
+  
+  .logged-user {
+    font-size: 12px;
+  }
+  
+  .menu-btn {
+    font-size: 18px;
+  }
+}
+
+/* ================= OVERLAY ================= */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}

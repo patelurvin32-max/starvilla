@@ -1,0 +1,159 @@
+/* ===============================
+   LUXURY NAVBAR 2026 DESIGN
+================================ */
+/* ===============================
+   PREMIUM SCROLL PROGRESS BAR
+================================ */
+
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  z-index: 9999;
+  background: linear-gradient(
+    90deg,
+    #c5a46d,np
+    #e0c18a,
+    #c5a46d
+  );
+  box-shadow: 0 0 12px rgba(197, 164, 109, 0.6);
+  transition: width 0.15s ease-out;
+}
+.custom-navbar {
+  padding: 18px 0;
+  transition: all 0.4s ease;
+  background: transparent;
+}
+
+.nav-scrolled {
+  background: #ffffff;
+  padding: 12px 0;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.luxury-brand {
+  font-family: "Playfair Display", serif;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.nav-scrolled .luxury-brand {
+  color: #000;
+}
+
+/* ===============================
+   LINKS
+================================ */
+
+.luxury-link {
+  color: #fff;
+  margin: 0 12px;
+  font-weight: 500;
+  position: relative;
+  transition: 0.3s;
+}
+
+.nav-scrolled .luxury-link {
+  color: #333;
+}
+
+.luxury-link:hover {
+  color: #c5a46d;
+}
+
+.active-link {
+  color: #c5a46d !important;
+}
+
+/* ===============================
+   BUTTON
+================================ */
+
+.btn-luxury {
+  background: #c5a46d;
+  padding: 10px 28px;
+  border-radius: 50px;
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-luxury:hover {
+  background: #b8955e;
+  color: #000;
+}
+
+/* ===============================
+   MODERN HAMBURGER
+================================ */
+
+.custom-toggler {
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.custom-toggler span {
+  width: 25px;
+  height: 2px;
+  background: #fff;
+  transition: 0.3s ease;
+}
+
+.nav-scrolled .custom-toggler span {
+  background: #000;
+}
+
+/* Hamburger animation */
+.custom-toggler.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.custom-toggler.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.custom-toggler.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ===============================
+   MOBILE MENU STYLE
+================================ */
+
+@media (max-width: 991px) {
+
+  .navbar-collapse {
+    background: #0b0b0b;
+    padding: 40px 20px;
+    border-radius: 0 0 20px 20px;
+    margin-top: 15px;
+  }
+
+  .nav-scrolled .navbar-collapse {
+    background: #ffffff;
+  }
+
+  .luxury-link {
+    display: block;
+    padding: 14px 0;
+    font-size: 18px;
+  }
+
+  .navbar-nav {
+    text-align: center;
+  }
+
+  .btn-luxury {
+    width: 100%;
+    margin-top: 20px;
+  }
+}

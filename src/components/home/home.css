@@ -1,0 +1,276 @@
+/* ===============================
+   LUXURY HOME PAGE – STAR VILLA
+================================ */
+
+/* ---------- COLOR SYSTEM ---------- */
+:root {
+  --ivory: #faf8f5;
+  --beige: #f3efe9;
+  --charcoal: #1c1c1c;
+  --deep-brown: #2a1f1a;
+  --gold: #c5a46d;
+  --gold-soft: rgba(197, 164, 109, 0.25);
+}
+
+/* ---------- TYPOGRAPHY ---------- */
+.font-serif {
+  font-family: "Playfair Display", serif;
+}
+
+.font-body {
+  font-family: "Inter", sans-serif;
+}
+
+/* ---------- SECTION SPACING ---------- */
+.home-section {
+  padding: 6rem 0;
+}
+
+@media (max-width: 768px) {
+  .home-section {
+    padding: 4rem 0;
+  }
+}
+
+/* ---------- BUTTONS ---------- */
+.btn-gold {
+  background: var(--gold);
+  color: #000;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 34px;
+  font-weight: 600;
+  transition: all 0.35s ease;
+}
+
+.btn-gold:hover {
+  background: #b8955e;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px var(--gold-soft);
+}
+
+.btn-outline-luxury {
+  border: 1px solid #fff;
+  color: #fff;
+  border-radius: 50px;
+  padding: 12px 34px;
+  background: transparent;
+  transition: all 0.35s ease;
+}
+
+.btn-outline-luxury:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* ---------- FADE ANIMATION ---------- */
+.fade-up {
+  animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* .hero-luxury {
+  height: 100vh;
+}
+
+.hero-slide {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 650px;
+  color: #fff;
+}
+
+.hero-content h1 {
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1.1;
+}
+
+.hero-tagline {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  margin: 20px 0 40px;
+  color: rgba(255,255,255,0.85);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+} */
+
+
+
+
+.room-luxury-card {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  transition: all 0.4s ease;
+}
+
+.room-luxury-card img {
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.room-luxury-card:hover img {
+  transform: scale(1.08);
+}
+
+.room-luxury-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+}
+
+.room-price {
+  color: var(--gold);
+  font-weight: 600;
+}
+.amenity-box {
+  background: #fff;
+  border-radius: 18px;
+  padding: 40px 25px;
+  transition: all 0.3s ease;
+}
+
+.amenity-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.amenity-icon {
+  font-size: 32px;
+  color: var(--gold);
+}
+.cta-luxury {
+  background: linear-gradient(
+      rgba(28,28,28,0.85),
+      rgba(28,28,28,0.85)
+    ),
+    url("../../assets/room3.jpg") center/cover;
+  color: #fff;
+  text-align: center;
+  padding: 6rem 0;
+}
+/* ===============================
+   LUXURY HERO SECTION
+================================ */
+
+.hero-luxury {
+  height: 100vh;
+  position: relative;
+}
+
+.hero-slide {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+}
+
+/* LEFT ALIGNED CONTENT */
+.hero-content-luxury {
+  max-width: 620px;
+  color: #fff;
+  animation: heroFade 1.2s ease forwards;
+}
+
+.hero-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.hero-title {
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 40px;
+  max-width: 520px;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+/* SUBTLE ANIMATION */
+@keyframes heroFade {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE REFINEMENT */
+@media (max-width: 768px) {
+  .hero-content-luxury {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-cta {
+    justify-content: center;
+  }
+}
+/* ===============================
+   NAVBAR TOGGLER – LUXURY GOLD
+================================ */
+
+/* Default (hero section – dark background) */
+.btn-white-filter {
+  filter: invert(88%) sepia(6%) saturate(420%)
+          hue-rotate(10deg) brightness(96%) contrast(105%);
+}
+
+/* Scrolled navbar – premium gold tone */
+.nav-active .navbar-toggler-icon {
+  filter: invert(62%) sepia(38%) saturate(420%)
+          hue-rotate(8deg) brightness(92%) contrast(110%);
+}
+
+/* Optional hover refinement */
+.navbar-toggler:hover .navbar-toggler-icon {
+  filter: invert(65%) sepia(45%) saturate(520%)
+          hue-rotate(5deg) brightness(90%) contrast(115%);
+}

@@ -88,6 +88,7 @@ const Contacts = () => {
           </div>
         </div>
 
+        <div className="table-responsive">
         <table className="users-table">
           <thead>
             <tr>
@@ -122,6 +123,7 @@ const Contacts = () => {
             )}
           </tbody>
         </table>
+        </div>
 
         <div className="table-footer">
           <div className="entries-info">

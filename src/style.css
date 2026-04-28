@@ -1,0 +1,529 @@
+/* IMPORT FONTS: Playfair Display (Headings/Logo) & Lato (Body) */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+:root {
+    --primary-gold: #c5a880;        /* The primary accent color */
+    --primary-gold-dark: #b08d55;
+    --primary-dark: #0f172b;        /* Dark Navy background/text contrast */
+    --text-muted: #666;
+    --bg-light: #f8f9fa;
+}
+
+
+
+h1, h2, h3, h4, h5, h6, .navbar-brand {
+    font-family: 'Playfair Display', serif;
+}
+
+/* === NAVBAR === */
+.navbar {
+    background: var(--primary-dark) !important; /* Dark Navy background */
+    padding: 3px 0;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    color: var(--primary-gold) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: #fff !important;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    padding: 0 15px !important;
+    transition: color 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--primary-gold) !important;
+}
+
+/* Gold Booking Button */
+.btn-book-now {
+    background-color: var(--primary-gold);
+    color: var(--primary-dark) !important;
+    font-weight: 700;
+    border: none;
+    border-radius: 0; 
+    padding: 8px 20px;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+.btn-book-now:hover {
+    background-color: var(--primary-gold-dark);
+}
+
+/* Custom Gold Button (for CTA) */
+.btn-gold {
+    background-color: var(--primary-gold);
+    color: var(--primary-dark) !important;
+    font-weight: 700;
+    border: 1px solid var(--primary-gold);
+    border-radius: 0;
+    transition: all 0.3s;
+}
+
+.btn-gold:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-gold);
+    color: var(--primary-gold) !important;
+}
+
+/* Outline Dark/Gold Button (for Room Details) */
+.btn-outline-dark-gold {
+    color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    border-radius: 0;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+.btn-outline-dark-gold:hover {
+    background-color: var(--primary-dark);
+    color: #fff;
+    border-color: var(--primary-dark);
+}
+
+/* === HERO SECTIONS (REDUCED HEIGHT) === */
+
+/* For home.php using the standard hero-section class */
+.hero-section {
+    position: relative;
+    /* REDUCED HEIGHT: Setting to 70vh */
+    height: 70vh; 
+    min-height: 400px;
+    /* You must replace 'assets/hero-bg.jpg' with your resort's banner image */
+    background: linear-gradient(rgba(15, 23, 43, 0.6), rgba(15, 23, 43, 0.6)), url('assets/hero-bg.jpg') no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Pulls section up to be full-screen behind the fixed nav */
+    margin-top: -80px; 
+}
+
+/* For pages using a Bootstrap Carousel (if applicable) */
+.carousel-item {
+    /* REDUCED HEIGHT: Setting to 70vh */
+    height: 70vh; 
+    min-height: 400px; 
+    position: relative;
+    background-color: var(--primary-dark);
+}
+
+.carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    opacity: 0.7; /* Darken image for text readability */
+}
+
+.hero-overlay .display-4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    color: var(--primary-gold) !important;
+}
+.hero-overlay .fs-5 {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.hero-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 10;
+    width: 90%; 
+}
+
+/* === SECTION TITLES === */
+.section-subtitle {
+    color: var(--primary-gold);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.section-title {
+    color: var(--primary-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.section-title-wrapper {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+/* Section Title Divider */
+.section-title-wrapper .divider {
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-gold);
+    margin: 15px auto;
+}
+
+/* === ROOM CARDS === */
+.room-card {
+    border: none;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 0; 
+    overflow: hidden;
+}
+
+.room-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.card-img-top {
+    height: 220px; /* Uniform image height for cards */
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.room-card:hover .card-img-top {
+    transform: scale(1.05); 
+}
+
+.room-price {
+    color: var(--primary-gold-dark);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.room-card .card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.room-card .card-text {
+    flex-grow: 1; 
+}
+.room-card .btn-primary {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    border-radius: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.room-card .btn-primary:hover {
+    background-color: var(--primary-gold);
+    border-color: var(--primary-gold);
+}
+
+/* Room Card tag fixes */
+.room-img-box {
+    position: relative;
+    overflow: hidden;
+    height: 250px; /* Consistent height for all room images */
+}
+.room-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+.room-card:hover .room-img-box img {
+    transform: scale(1.05); 
+}
+.room-img-box .bg-warning {
+    background-color: var(--primary-gold) !important;
+    color: var(--primary-dark) !important;
+}
+
+/* --- AMENITIES PAGE STYLES --- */
+
+/* Page Header Banner */
+/* .page-header {
+    background: linear-gradient(rgba(15, 23, 43, 0.7), rgba(15, 23, 43, 0.7)), url('../assets/amenities-banner.jpg'); 
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+.nature-img-wrapper {
+    position: relative;
+    height: 100%;
+    min-height: 400px;
+}
+
+.nature-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: 10px 10px 0px var(--primary-gold); 
+}
+
+.amenity-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.05);
+    padding: 2rem 1.5rem;
+    transition: all 0.4s ease;
+}
+
+.amenity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-bottom: 3px solid var(--primary-gold);
+}
+
+.amenity-icon-circle {
+    width: 80px;
+    height: 80px;
+    background-color: var(--bg-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    transition: background-color 0.3s;
+}
+
+.amenity-card:hover .amenity-icon-circle {
+    background-color: var(--primary-gold);
+}
+
+.amenity-card:hover .amenity-icon-circle i {
+    color: #fff !important;
+}
+
+/* --- HOME AMENITIES PREVIEW STYLES --- */
+.home-amenity-icon i {
+    color: var(--primary-gold) !important; 
+}
+
+.home-amenity-card:hover h6 {
+    color: var(--primary-gold) !important;
+    transition: color 0.3s;
+}
+/* ----------------------------------------------------------------
+    Theme: Star Villa Resort
+    Palette: Gold, Dark Navy/Black, White/Cream
+---------------------------------------------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+
+:root {
+    --bs-font-sans-serif: 'Inter', sans-serif;
+    --color-gold: #C0A04C; /* Primary Gold Color */
+    --color-dark-gold: #8B6E3E; /* Darker Gold for accents/borders */
+    --color-dark-bg: #1A1A1A;
+    --color-text-muted: #6c757d;
+}
+
+body {
+    font-family: var(--bs-font-sans-serif);
+    color: var(--color-dark-bg);
+    background-color: #f7f7f7;
+
+}
+
+/* Custom Fonts */
+.font-serif {
+    font-family: 'Playfair Display', serif;
+}
+
+/* ------------------- Color Utilities ------------------- */
+.text-gold-accent {
+    color: var(--color-gold) !important;
+}
+
+.bg-dark-gold {
+    background-color: var(--color-dark-gold) !important;
+}
+
+/* ------------------- Buttons ------------------- */
+.btn-gold {
+    background-color: var(--color-gold);
+    color: white;
+    border-color: var(--color-gold);
+    transition: all 0.3s ease;
+    border-radius: 0;
+    padding: 10px 30px;
+}
+
+.btn-gold:hover, .btn-gold:focus {
+    background-color: var(--color-dark-gold);
+    border-color: var(--color-dark-gold);
+    color: white;
+    box-shadow: 0 4px 12px rgba(192, 160, 76, 0.4);
+}
+
+.btn-outline-dark-gold {
+    color: var(--color-dark-gold);
+    border-color: var(--color-dark-gold);
+    background-color: transparent;
+    border-radius: 0;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-dark-gold:hover {
+    color: white;
+    background-color: var(--color-dark-gold);
+    border-color: var(--color-dark-gold);
+}
+
+
+/* ------------------- Navigation ------------------- */
+.navbar {
+    background-color: var(--color-dark-bg); /* Solid Dark background */
+    /* Remove blur/filter for simplicity based on user's input style */
+}
+
+.navbar-brand {
+    color: var(--color-gold) !important;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    padding: 15px 12px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--color-gold);
+}
+
+.letter-spacing-2 {
+    letter-spacing: 2px;
+}
+
+/* ------------------- Hero Carousel (from home.php) ------------------- */
+#heroCarousel {
+    height: 70vh; 
+    min-height: 450px;
+    margin-top: 0; /* Reset margin top as padding is on body */
+}
+
+#heroCarousel .carousel-item {
+    height: 100%;
+}
+
+#heroCarousel img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6); 
+}
+
+/* ------------------- Page Header (for rooms.php, etc.) ------------------- */
+.page-header {
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    padding: 40px 0;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.page-header .container {
+    z-index: 10;
+}
+
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* ------------------- Section Titles ------------------- */
+.section-subtitle {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--color-dark-bg);
+}
+
+.divider {
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-gold);
+    margin: 15px auto 40px auto;
+}
+
+
+/* ------------------- Rooms Detail Rows ------------------- */
+.room-detail-row {
+    border: 1px solid #eee;
+    background-color: white;
+    overflow: hidden;
+    border-radius: 0;
+    transition: transform 0.3s ease;
+}
+
+.room-detail-row:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.room-image-col {
+    min-height: 400px; /* Ensure image column has height */
+    position: relative;
+}
+
+.room-image-box {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.room-price-tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px;
+    font-size: 1.2rem;
+    border-radius: 2px;
+}
+
+.room-details .list-unstyled li {
+    line-height: 1.8;
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 767.98px) {
+    .room-image-col {
+        min-height: 250px;
+    }
+}
