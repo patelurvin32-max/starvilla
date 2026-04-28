@@ -167,17 +167,43 @@
 @media (max-width: 768px) {
   .main-sidebar {
     position: fixed;
-    left: -270px;
+    left: -100%;
     top: 0;
-    z-index: 1000;
+    z-index: 1001;
     transition: left 0.3s ease;
+    box-shadow: none;
   }
 
   .main-sidebar.mobile-open {
     left: 0;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
   }
 
   .main-sidebar.collapsed {
-    width: 270px; /* disable icon-only mode on mobile */
+    width: 270px;
+    left: -100%;
+  }
+  
+  .main-sidebar.collapsed.mobile-open {
+    left: 0;
+  }
+  
+  /* Ensure logo is visible on mobile */
+  .main-sidebar .logo {
+    padding: 20px;
+  }
+  
+  .main-sidebar .logo span {
+    display: inline !important;
+  }
+  
+  /* Ensure submenu is visible on mobile */
+  .main-sidebar .submenu {
+    display: block !important;
+  }
+  
+  .main-sidebar .sidebar-nav span,
+  .main-sidebar .arrow {
+    display: inline !important;
   }
 }

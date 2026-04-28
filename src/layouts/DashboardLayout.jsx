@@ -26,6 +26,7 @@ const DashboardLayout = ({ children }) => {
         isAdmin={true}
         collapsed={!isMobile && collapsed}
         mobileOpen={mobileOpen}
+        onMobileClose={() => setMobileOpen(false)}
       />
 
       <div

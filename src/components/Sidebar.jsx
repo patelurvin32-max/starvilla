@@ -2,8 +2,14 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
-const Sidebar = ({ isAdmin = true, collapsed, mobileOpen }) => {
+const Sidebar = ({ isAdmin = true, collapsed, mobileOpen, onMobileClose }) => {
   const [openAdmin, setOpenAdmin] = useState(false);
+  
+  const handleLinkClick = () => {
+    if (mobileOpen && onMobileClose) {
+      onMobileClose();
+    }
+  };
 
   return (
     <aside
@@ -24,6 +30,7 @@ const Sidebar = ({ isAdmin = true, collapsed, mobileOpen }) => {
             <NavLink
               to="/dashboard"
               className={({ isActive }) => (isActive ? "active" : "")}
+              onClick={handleLinkClick}
             >
               <i className="fas fa-tachometer-alt" />
               {!collapsed && <span>Dashboard</span>}
@@ -44,6 +51,7 @@ const Sidebar = ({ isAdmin = true, collapsed, mobileOpen }) => {
             <NavLink
               to="/staff"
               className={({ isActive }) => (isActive ? "active" : "")}
+              onClick={handleLinkClick}
             >
               <i className="fas fa-users-cog" />
               {!collapsed && <span>Staff Details</span>}
@@ -66,7 +74,7 @@ const Sidebar = ({ isAdmin = true, collapsed, mobileOpen }) => {
               {!collapsed && (
                 <ul className="submenu">
                   <li>
-                    <NavLink to="/admin/users">
+                    <NavLink to="/admin/users" onClick={handleLinkClick}>
                       <i className="fas fa-circle submenu-dot" />
                       <span>Users</span>
                     </NavLink>
@@ -83,7 +91,7 @@ const Sidebar = ({ isAdmin = true, collapsed, mobileOpen }) => {
           )}
 
           <li className="logout-item">
-            <NavLink to="/logout">
+            <NavLink to="/logout" onClick={handleLinkClick}>
               <i className="fas fa-power-off" />
               {!collapsed && <span>Logout</span>}
             </NavLink>

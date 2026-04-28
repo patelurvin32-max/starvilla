@@ -214,6 +214,8 @@
 @media (max-width: 768px) {
   .admin-page {
     padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .header-row {
@@ -231,76 +233,89 @@
   }
 
   .card-header {
-    justify-content: flex-start;
+    justify-content: stretch;
     margin-bottom: 15px;
+    width: 100%;
   }
 
   .btn-add-user,
   .btn-add {
     width: 100%;
     text-align: center;
-    padding: 10px;
-    font-size: 13px;
+    padding: 12px;
+    font-size: 14px;
+    display: block;
   }
   
   .table-controls {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 15px;
+    width: 100%;
+  }
+
+  .search-control {
+    width: 100%;
   }
 
   .search-control input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     font-size: 14px;
+    box-sizing: border-box;
   }
   
   /* Table container with horizontal scroll */
   .table-responsive {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin: 0 -15px;
-    padding: 0 15px;
+    margin: 0 -10px;
+    padding: 0 10px;
+    width: calc(100% + 20px);
   }
 
   .admin-table,
   .users-table,
   .types-table {
-    min-width: 600px;
-    font-size: 13px;
+    min-width: 100%;
+    font-size: 12px;
   }
   
   .admin-table th,
   .users-table th,
   .types-table th {
-    padding: 10px 8px;
-    font-size: 12px;
+    padding: 8px 6px;
+    font-size: 11px;
+    white-space: nowrap;
   }
   
   .admin-table td,
   .users-table td,
   .types-table td {
-    padding: 10px 8px;
-    font-size: 13px;
+    padding: 8px 6px;
+    font-size: 12px;
   }
   
   /* Smaller buttons in table */
   .btn-status {
-    padding: 3px 8px;
-    font-size: 11px;
+    padding: 4px 8px;
+    font-size: 10px;
+    white-space: nowrap;
   }
   
   .btn-edit {
     padding: 4px 8px;
-    font-size: 11px;
+    font-size: 10px;
+    white-space: nowrap;
   }
 
   .table-footer {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 12px;
     margin-top: 15px;
+    width: 100%;
   }
   
   .entries-info {
@@ -326,6 +341,13 @@
     width: 90%;
     max-width: 350px;
     padding: 15px;
+    margin: 0 auto;
+  }
+  
+  .users-card {
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
