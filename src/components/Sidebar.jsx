@@ -71,12 +71,12 @@ const Sidebar = ({ isAdmin = true, collapsed, mobileOpen }) => {
                       <span>Users</span>
                     </NavLink>
                   </li>
-                  <li>
+                  {/* <li>
                     <NavLink to="/admin/user-types">
                       <i className="fas fa-circle submenu-dot" />
                       <span>User Types</span>
                     </NavLink>
-                  </li>
+                  </li> */}
                 </ul>
               )}
             </li>
