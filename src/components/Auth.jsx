@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 
+const API_URL = "https://hotel-liart-three.vercel.app/api";
+
 const Auth = () => {
   const navigate = useNavigate();
 
@@ -19,38 +21,77 @@ const Auth = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    setTimeout(() => {
+    try {
       if (isRegister) {
-        // 📝 REGISTER (demo)
-        localStorage.setItem(
-          "registeredUser",
-          JSON.stringify(form)
-        );
-        alert("Registration successful. Please login.");
-        setIsRegister(false);
-      } else {
-        // 🔐 LOGIN (demo)
-        if (
-          form.email === "admin@mail.com" &&
-          form.password === "admin"
-        ) {
-          localStorage.setItem("token", "demo-auth-token");
-          localStorage.setItem(
-            "user",
-            JSON.stringify({ email: form.email, role: "admin" })
-          );
-          navigate("/dashboard", { replace: true });
+        // 📝 REGISTER - Create new user in backend
+        const response = await fetch(`${API_URL}/users`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: form.name,
+            username: form.email.split('@')[0], // Generate username from email
+            password: form.password,
+            email: form.email,
+            type: "Receptionist", // Default role
+            district: "",
+            active: true,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert("Registration successful. Please login.");
+          setIsRegister(false);
+          setForm({ name: "", email: "", password: "" });
         } else {
-          setError("Invalid email or password");
+          setError(data.message || "Registration failed");
+        }
+      } else {
+        // 🔐 LOGIN - Check against backend users
+        const response = await fetch(`${API_URL}/users`);
+        const data = await response.json();
+
+        if (data.success) {
+          // Find user by username (email prefix) and password
+          const user = data.data.find(
+            (u) =>
+              (u.username === form.email || u.username === form.email.split('@')[0]) &&
+              u.password === form.password &&
+              u.active === true
+          );
+
+          if (user) {
+            localStorage.setItem("token", "auth-token-" + user._id);
+            localStorage.setItem(
+              "user",
+              JSON.stringify({
+                id: user._id,
+                name: user.name,
+                email: form.email,
+                role: user.type,
+                username: user.username,
+              })
+            );
+            navigate("/dashboard", { replace: true });
+          } else {
+            setError("Invalid email/username or password");
+          }
+        } else {
+          setError("Failed to fetch users from server");
         }
       }
+    } catch (err) {
+      console.error("Auth error:", err);
+      setError("Network error. Please try again.");
+    } finally {
       setLoading(false);
-    }, 800);
+    }
   };
 
   return (
@@ -97,7 +138,7 @@ const Auth = () => {
             : "Login"}
         </button>
 
-        <div className="switch-auth">
+        {/* <div className="switch-auth">
           {isRegister ? (
             <>
               Already have an account?
@@ -109,7 +150,7 @@ const Auth = () => {
               <span onClick={() => setIsRegister(true)}> Register</span>
             </>
           )}
-        </div>
+        </div> */}
       </form>
     </div>
   );
