@@ -13,7 +13,7 @@ const Auth = () => {
 
   const [form, setForm] = useState({
     name: "",
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -34,9 +34,9 @@ const Auth = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: form.name,
-            username: form.email.split('@')[0], // Generate username from email
+            username: form.username,
             password: form.password,
-            email: form.email,
+            email: "",
             type: "Receptionist", // Default role
             district: "",
             active: true,
@@ -48,7 +48,7 @@ const Auth = () => {
         if (data.success) {
           alert("Registration successful. Please login.");
           setIsRegister(false);
-          setForm({ name: "", email: "", password: "" });
+          setForm({ name: "", username: "", password: "" });
         } else {
           setError(data.message || "Registration failed");
         }
@@ -58,10 +58,10 @@ const Auth = () => {
         const data = await response.json();
 
         if (data.success) {
-          // Find user by username (email prefix) and password
+          // Find user by username and password
           const user = data.data.find(
             (u) =>
-              (u.username === form.email || u.username === form.email.split('@')[0]) &&
+              u.username === form.username &&
               u.password === form.password &&
               u.active === true
           );
@@ -73,14 +73,13 @@ const Auth = () => {
               JSON.stringify({
                 id: user._id,
                 name: user.name,
-                email: form.email,
                 role: user.type,
                 username: user.username,
               })
             );
             navigate("/dashboard", { replace: true });
           } else {
-            setError("Invalid email/username or password");
+            setError("Invalid username or password");
           }
         } else {
           setError("Failed to fetch users from server");
@@ -115,9 +114,9 @@ const Auth = () => {
         )}
 
         <input
-          type="email"
-          name="email"
-          placeholder="Email"
+          type="text"
+          name="username"
+          placeholder="Username"
           required
           onChange={handleChange}
         />
