@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./AddUser.css";
 
 const API_URL = "https://hotel-liart-three.vercel.app/api";
 
-const AddUser = () => {
+const EditUser = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -16,6 +18,37 @@ const AddUser = () => {
     district: "",
   });
 
+  useEffect(() => {
+    fetchUser();
+  }, [id]);
+
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(`${API_URL}/users/${id}`);
+      const data = await response.json();
+      if (data.success) {
+        const user = data.data;
+        setFormData({
+          name: user.name || "",
+          username: user.username || "",
+          password: "",
+          userType: user.type || "",
+          active: user.active !== undefined ? user.active : true,
+          district: user.district || "",
+        });
+      } else {
+        alert("Failed to fetch user");
+        navigate("/admin/users");
+      }
+    } catch (err) {
+      console.error("Error fetching user:", err);
+      alert("Error fetching user");
+      navigate("/admin/users");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -25,41 +58,49 @@ const AddUser = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    const updateData = {
+      name: formData.name,
+      username: formData.username,
+      type: formData.userType,
+      active: formData.active,
+      district: formData.district,
+    };
+
+    if (formData.password) {
+      updateData.password = formData.password;
+    }
+
     try {
-      const response = await fetch(`${API_URL}/users`, {
-        method: "POST",
+      const response = await fetch(`${API_URL}/users/${id}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          username: formData.username,
-          password: formData.password,
-          type: formData.userType,
-          active: formData.active,
-          district: formData.district,
-        }),
+        body: JSON.stringify(updateData),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        alert("User added successfully!");
+        alert("User updated successfully!");
         navigate("/admin/users");
       } else {
-        alert(data.message || "Failed to add user");
+        alert(data.message || "Failed to update user");
       }
     } catch (err) {
-      console.error("Error adding user:", err);
-      alert("Error adding user. Please try again.");
+      console.error("Error updating user:", err);
+      alert("Error updating user. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  if (isLoading) {
+    return <div className="add-user-page">Loading...</div>;
+  }
+
   return (
     <div className="add-user-page">
-     
       <div className="add-user-card">
-        <h2 className="form-title">Add New User</h2>
+        <h2 className="form-title">Edit User</h2>
 
         <form onSubmit={handleSubmit}>
           {/* Name */}
@@ -95,7 +136,7 @@ const AddUser = () => {
 
             <div className="form-group half">
               <label>
-                Password <span className="required">*</span>
+                Password <span className="optional">(Leave blank to keep current)</span>
               </label>
               <div className="password-input">
                 <input
@@ -103,8 +144,7 @@ const AddUser = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder="Admin@1819"
-                  required
+                  placeholder="Enter new password"
                 />
                 <i className="fas fa-eye-slash toggle-password" />
               </div>
@@ -149,7 +189,7 @@ const AddUser = () => {
           {/* Buttons */}
           <div className="form-actions">
             <button type="submit" className="btn-submit" disabled={isSubmitting}>
-              <i className="fas fa-check me-2" /> {isSubmitting ? "Submitting..." : "Submit"}
+              <i className="fas fa-check me-2" /> {isSubmitting ? "Updating..." : "Update"}
             </button>
             <Link to="/admin/users" className="btn-cancel">
               <i className="fas fa-times me-2" /> Cancel
@@ -173,4 +213,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default EditUser;

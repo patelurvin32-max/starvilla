@@ -19,6 +19,7 @@ import Dashboard from "./pages/Dashboard";
 import SummaryReport from "./pages/admin/SummaryReport";
 import Users from "./pages/admin/Users";
 import AddUser from "./pages/admin/AddUser";
+import EditUser from "./pages/admin/EditUser";
 import UserTypes from "./pages/admin/UserTypes";
 import Staff from "./pages/admin/Staff";
 import AddStaff from "./pages/admin/AddStaff";
@@ -124,6 +125,17 @@ function App() {
               <PrivateRoute>
                 <DashboardLayout>
                   <AddUser />
+                </DashboardLayout>
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/admin/users/edit/:id"
+            element={
+              <PrivateRoute>
+                <DashboardLayout>
+                  <EditUser />
                 </DashboardLayout>
               </PrivateRoute>
             }

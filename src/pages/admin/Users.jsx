@@ -1,24 +1,57 @@
-import React, { useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./AdminTable.css";
 
+const API_URL = "https://hotel-liart-three.vercel.app/api";
 
 const Users = () => {
-  const [users] = useState([
-    {
-      id: 1,
-      name: "Admin",
-      username: "admin",
-      type: "Admin",
-      district: "",
-      active: true,
-    },
-    // Add more mock users here for testing pagination/search
-  ]);
-
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
   const [entries, setEntries] = useState(25);
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(`${API_URL}/users`);
+      const data = await response.json();
+      if (data.success) {
+        setUsers(data.data);
+      } else {
+        setError("Failed to fetch users");
+      }
+    } catch (err) {
+      setError("Error fetching users");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleToggleActive = async (userId, currentStatus) => {
+    try {
+      const response = await fetch(`${API_URL}/users/${userId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ active: !currentStatus }),
+      });
+      const data = await response.json();
+      if (data.success) {
+        fetchUsers();
+      }
+    } catch (err) {
+      console.error("Error updating user:", err);
+    }
+  };
+
+  const handleEdit = (userId) => {
+    navigate(`/admin/users/edit/${userId}`);
+  };
 
   const filteredUsers = useMemo(() => {
     return users.filter(
@@ -36,34 +69,41 @@ const Users = () => {
 
   const totalPages = Math.ceil(filteredUsers.length / entries);
 
+  if (loading) {
+    return <div className="admin-page">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="admin-page">Error: {error}</div>;
+  }
+
   return (
     <div className="admin-page">
-        <div className="page-headeruser">
-  <div className="header-row">
-    {/* Left: Title */}
-    <h1 className="page-title">
-      List of Users
-    </h1>
+      <div className="page-headeruser">
+        <div className="header-row">
+          {/* Left: Title */}
+          <h1 className="page-title">
+            List of Users
+          </h1>
 
-    {/* Right: Breadcrumb */}
-    <nav className="breadcrumb">
-      <span>Home</span>
-      <span className="separator">/</span>
-      <span>Admin Master Management</span>
-      <span className="separator">/</span>
-      <span className="active">Users</span>
-    </nav>
-  </div>
-</div>
+          {/* Right: Breadcrumb */}
+          <nav className="breadcrumb">
+            <span>Home</span>
+            <span className="separator">/</span>
+            <span>Admin Master Management</span>
+            <span className="separator">/</span>
+            <span className="active">Users</span>
+          </nav>
+        </div>
+      </div>
 
       {/* Numbered Breadcrumb */}
-    
 
       <div className="users-card">
-  <div className="card-header">
-    <Link to="/admin/users/add" className="btn-add-user">Add New User
-    </Link>
-  </div>
+        <div className="card-header">
+          <Link to="/admin/users/add" className="btn-add-user">Add New User
+          </Link>
+        </div>
 
         <div className="table-controls">
 
@@ -92,24 +132,38 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {paginatedUsers.map((user, index) => (
-              <tr key={user.id}>
-                <td>{(currentPage - 1) * entries + index + 1}</td>
-                <td>{user.name}</td>
-                <td>{user.username}</td>
-                <td>{user.type}</td>
-                <td>
-                  <button className={`btn-status ${user.active ? "active" : "inactive"}`}>
-                    {user.active ? "Active" : "Inactive"}
-                  </button>
-                </td>
-                <td>
-                  <button className="btn-edit">
-                    Edit
-                  </button>
+            {paginatedUsers.length > 0 ? (
+              paginatedUsers.map((user, index) => (
+                <tr key={user._id}>
+                  <td>{(currentPage - 1) * entries + index + 1}</td>
+                  <td>{user.name}</td>
+                  <td>{user.username}</td>
+                  <td>{user.type}</td>
+                  <td>
+                    <button
+                      className={`btn-status ${user.active ? "active" : "inactive"}`}
+                      onClick={() => handleToggleActive(user._id, user.active)}
+                    >
+                      {user.active ? "Active" : "Inactive"}
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      className="btn-edit"
+                      onClick={() => handleEdit(user._id)}
+                    >
+                      Edit
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" style={{ textAlign: "center", padding: "20px" }}>
+                  No users found
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
 
