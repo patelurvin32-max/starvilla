@@ -23,6 +23,7 @@ import EditUser from "./pages/admin/EditUser";
 import UserTypes from "./pages/admin/UserTypes";
 import Staff from "./pages/admin/Staff";
 import AddStaff from "./pages/admin/AddStaff";
+import EditStaff from "./pages/admin/EditStaff";
 import NewBooking from "./pages/admin/NewBooking";
 import Contacts from "./pages/admin/Contacts";
 import Logout from "./pages/Logout";
@@ -170,6 +171,17 @@ function App() {
               <PrivateRoute>
                 <DashboardLayout>
                   <AddStaff />
+                </DashboardLayout>
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/staff/edit/:id"
+            element={
+              <PrivateRoute>
+                <DashboardLayout>
+                  <EditStaff />
                 </DashboardLayout>
               </PrivateRoute>
             }

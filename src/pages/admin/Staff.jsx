@@ -1,17 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Staff.css";
 
+const API_URL = "https://hotel-liart-three.vercel.app/api";
+
 const Staff = () => {
   const navigate = useNavigate();
+  const [staffList, setStaffList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const staffList = [
-    { id: 1, name: "Rahul Sharma", role: "Manager", status: "present" },
-    { id: 2, name: "Amit Verma", role: "Receptionist", status: "leave" },
-    { id: 3, name: "Suman Patel", role: "Housekeeping", status: "present" },
-    { id: 4, name: "Kiran Singh", role: "Security", status: "present" },
-  ];
+  useEffect(() => {
+    fetchStaff();
+  }, []);
+
+  const fetchStaff = async () => {
+    try {
+      const response = await fetch(`${API_URL}/staff`);
+      const data = await response.json();
+      if (data.success) {
+        setStaffList(data.data);
+      } else {
+        setError("Failed to fetch staff");
+      }
+    } catch (err) {
+      setError("Error fetching staff");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (staffId) => {
+    if (!confirm("Are you sure you want to delete this staff member?")) return;
+    try {
+      const response = await fetch(`${API_URL}/staff/${staffId}`, {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      if (data.success) {
+        fetchStaff();
+      }
+    } catch (err) {
+      console.error("Error deleting staff:", err);
+    }
+  };
+
+  const handleEdit = (staffId) => {
+    navigate(`/staff/edit/${staffId}`);
+  };
 
   // Logic: Search Filter
   const filteredStaff = staffList.filter((staff) =>
@@ -26,6 +63,14 @@ const Staff = () => {
   }, {});
 
   const getInitials = (name) => name.split(' ').map(n => n[0]).join('');
+
+  if (loading) {
+    return <div className="page-container">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="page-container">Error: {error}</div>;
+  }
 
   return (
     <div className="page-container">
@@ -95,13 +140,13 @@ const Staff = () => {
           <tbody>
             {filteredStaff.length > 0 ? (
               filteredStaff.map((staff) => (
-                <tr key={staff.id}>
+                <tr key={staff._id}>
                   <td>
                     <div className="name-cell">
                       <div className="avatar-circle">{getInitials(staff.name)}</div>
                       <div>
                         <div style={{ fontWeight: "700", color: 'var(--text-dark)' }}>{staff.name}</div>
-                        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Staff ID: #STR-{staff.id}</div>
+                        <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>Staff ID: #STR-{staff._id}</div>
                       </div>
                     </div>
                   </td>
@@ -113,8 +158,8 @@ const Staff = () => {
                   </td>
                   <td style={{ textAlign: "right" }}>
                     <div className="action-btn-group">
-                       <button className="icon-btn" title="Edit Staff">Edit</button>
-                       <button className="icon-btn delete" title="Remove Staff">Delete</button>
+                       <button className="icon-btn" title="Edit Staff" onClick={() => handleEdit(staff._id)}>Edit</button>
+                       <button className="icon-btn delete" title="Remove Staff" onClick={() => handleDelete(staff._id)}>Delete</button>
                     </div>
                   </td>
                 </tr>
