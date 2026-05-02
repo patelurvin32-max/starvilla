@@ -2,24 +2,48 @@ import React, { useState, useEffect } from "react"; // 1. Import hooks
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
+const API_URL = "https://hotel-liart-three.vercel.app/api";
+
 const Dashboard = () => {
   const navigate = useNavigate();
-
-  // 2. Initialize state with the current local time
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Fetch bookings from API
   useEffect(() => {
-    // 3. Setup a timer to update the state every minute
-    // This ensures that when midnight passes, the display updates automatically
+    fetchBookings();
+  }, []);
+
+  const fetchBookings = async () => {
+    try {
+      const response = await fetch(`${API_URL}/bookings`);
+      const data = await response.json();
+      if (data.success) {
+        // Filter active bookings (not checked-out or cancelled)
+        const activeBookings = data.data.filter(
+          booking => booking.status !== 'Checked-out' && booking.status !== 'Cancelled'
+        );
+        setBookings(activeBookings);
+      } else {
+        setError("Failed to fetch bookings");
+      }
+    } catch (err) {
+      setError("Error fetching bookings");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Timer for date
+  useEffect(() => {
     const timer = setInterval(() => {
       setCurrentDate(new Date());
-    }, 60000); // Checks every 60 seconds
-
-    // 4. Cleanup the interval on component unmount to prevent memory leaks
+    }, 60000);
     return () => clearInterval(timer);
   }, []);
 
-  // 5. Format the date (e.g., "Friday, Oct 24")
   const formattedDate = currentDate.toLocaleDateString('en-US', {
     weekday: 'long',
     month: 'short',
@@ -35,12 +59,20 @@ const Dashboard = () => {
     offDuty: 3,
   };
 
-  const guestList = [
-    { id: 1, name: "John Doe", room: "102", type: "Suite", checkout: "Oct 26, 2023", time: "11:00 AM", status: "In-House", payment: "Card" },
-    { id: 2, name: "Sarah Jenkins", room: "405", type: "Deluxe", checkout: "Oct 25, 2023", time: "10:30 AM", status: "Checking Out", payment: "Cash" },
-    { id: 3, name: "Michael Ross", room: "301", type: "Standard", checkout: "Oct 28, 2023", time: "12:00 PM", status: "In-House", payment: "Card" },
-    { id: 4, name: "Suman Rao", room: "204", type: "Premium", checkout: "Oct 24, 2023", time: "02:00 PM", status: "Late Checkout", payment: "Cash" },
-  ];
+  // Format booking data for display
+  const guestList = bookings.map(booking => {
+    const checkOutDate = new Date(booking.checkOut);
+    return {
+      id: booking._id,
+      name: booking.guestName,
+      room: booking.roomNumber || 'TBD',
+      type: booking.roomType,
+      checkout: checkOutDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+      time: checkOutDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+      status: booking.status === 'Active' ? 'In-House' : booking.status,
+      payment: booking.paymentMethod,
+    };
+  });
 
   return (
     <div className="dash-container">
@@ -110,44 +142,54 @@ const Dashboard = () => {
         </div>
         
         <div className="dash-table-container">
-          <table className="dash-guest-table">
-            <thead>
-              <tr>
-                <th>Guest Name</th>
-                <th>Room Info</th>
-                <th>Check-out Date</th>
-                <th>Check-out Time</th>
-                <th>Status</th>
-                <th>Payment</th>
-              </tr>
-            </thead>
-            <tbody>
-              {guestList.map((guest) => (
-                <tr key={guest.id}>
-                  <td><div className="dash-guest-name">{guest.name}</div></td>
-                  <td>
-                    <div className="dash-room-info">
-                      <strong>Room {guest.room}</strong>
-                      <span>{guest.type}</span>
-                    </div>
-                  </td>
-                  <td><div className="dash-date">{guest.checkout}</div></td>
-                  <td><div className="dash-time">{guest.time}</div></td>
-                  <td>
-                    <span className={`dash-status-tag ${guest.status.replace(/\s+/g, '-').toLowerCase()}`}>
-                      {guest.status}
-                    </span>
-                  </td>
-                  <td>
-                    <div className={`dash-pay-method ${guest.payment.toLowerCase()}`}>
-                      {guest.payment === "Card" ? "💳 " : "💵 "}
-                      {guest.payment}
-                    </div>
-                  </td>
+          {loading ? (
+            <div style={{ padding: '2rem', textAlign: 'center' }}>Loading bookings...</div>
+          ) : error ? (
+            <div style={{ padding: '2rem', textAlign: 'center', color: '#ef4444' }}>{error}</div>
+          ) : guestList.length === 0 ? (
+            <div style={{ padding: '2rem', textAlign: 'center', color: '#6b7280' }}>
+              No active bookings. <button onClick={() => navigate('/bookings/new')} style={{ color: '#c5a46d', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer' }}>Create a new booking</button>
+            </div>
+          ) : (
+            <table className="dash-guest-table">
+              <thead>
+                <tr>
+                  <th>Guest Name</th>
+                  <th>Room Info</th>
+                  <th>Check-out Date</th>
+                  <th>Check-out Time</th>
+                  <th>Status</th>
+                  <th>Payment</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {guestList.map((guest) => (
+                  <tr key={guest.id}>
+                    <td><div className="dash-guest-name">{guest.name}</div></td>
+                    <td>
+                      <div className="dash-room-info">
+                        <strong>Room {guest.room}</strong>
+                        <span>{guest.type}</span>
+                      </div>
+                    </td>
+                    <td><div className="dash-date">{guest.checkout}</div></td>
+                    <td><div className="dash-time">{guest.time}</div></td>
+                    <td>
+                      <span className={`dash-status-tag ${guest.status.replace(/\s+/g, '-').toLowerCase()}`}>
+                        {guest.status}
+                      </span>
+                    </td>
+                    <td>
+                      <div className={`dash-pay-method ${guest.payment.toLowerCase()}`}>
+                        {guest.payment === "Card" ? "💳 " : guest.payment === "UPI" ? "📱 " : "💵 "}
+                        {guest.payment}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>
