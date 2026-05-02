@@ -568,34 +568,138 @@
 @media (max-width: 480px) {
   .page-container { padding: 0.5rem; }
   
-  .stats-grid {
-    gap: 0.75rem;
+  .page-header1 {
+    margin-bottom: 1rem;
   }
   
-  .stat-card h4 {
-    font-size: 0.7rem;
+  .page-header1 h2 {
+    font-size: 1.1rem;
   }
   
-  .stat-card p {
-    font-size: 1.5rem;
-  }
-  
-  .section-title {
+  .btn.btn-primary {
+    padding: 8px 12px;
     font-size: 0.8rem;
   }
   
+  .stats-grid {
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .stat-card {
+    padding: 0.75rem;
+  }
+  
+  .stat-card h4 {
+    font-size: 0.65rem;
+  }
+  
+  .stat-card p {
+    font-size: 1.25rem;
+  }
+  
+  .section-title {
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .role-grid {
+    gap: 0.5rem;
+  }
+  
+  .role-stat-card {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .role-label {
+    font-size: 0.8rem;
+  }
+  
+  .role-count {
+    font-size: 0.9rem;
+    padding: 2px 6px;
+  }
+  
+  .table-controls {
+    margin-bottom: 0.75rem;
+  }
+  
+  .search-input {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  .staff-table-container {
+    border-radius: var(--radius-md);
+  }
+  
   .staff-table {
-    min-width: 400px;
+    min-width: 350px;
   }
   
   .staff-table th,
   .staff-table td {
-    padding: 0.5rem;
-    font-size: 0.8rem;
+    padding: 0.4rem;
+    font-size: 0.75rem;
+  }
+  
+  .name-cell {
+    gap: 0.5rem;
+  }
+  
+  .avatar-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+    border-radius: 8px;
+  }
+  
+  .role-badge {
+    padding: 2px 6px;
+    font-size: 0.7rem;
+  }
+  
+  .badge {
+    padding: 2px 6px;
+    font-size: 0.65rem;
+  }
+  
+  .action-btn-group {
+    gap: 0.25rem;
   }
   
   .icon-btn {
-    padding: 3px 6px;
+    padding: 3px 5px;
+    font-size: 0.65rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+  .page-container { 
+    padding: 0.4rem; 
+  }
+  
+  .page-header1 h2 {
+    font-size: 1rem;
+  }
+  
+  .stat-card p {
+    font-size: 1.1rem;
+  }
+  
+  .staff-table {
+    min-width: 320px;
+  }
+  
+  .staff-table th,
+  .staff-table td {
+    padding: 0.35rem;
     font-size: 0.7rem;
+  }
+  
+  .icon-btn {
+    padding: 2px 4px;
+    font-size: 0.6rem;
   }
 }

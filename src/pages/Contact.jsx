@@ -103,7 +103,7 @@ const Contact = () => {
                                 <div>
                                     <h6 className="fw-bold mb-1">Email Inquiry</h6>
                                     <p className="text-muted small mb-0">
-                                        <a href="mailto:stay@starvilla.com">stay@starvilla.com</a>
+                                        <a href="mailto:stay@patelvilla.com">stay@patelvilla.com</a>
                                     </p>
                                 </div>
                             </div>
