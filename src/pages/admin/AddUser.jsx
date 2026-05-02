@@ -7,6 +7,7 @@ const API_URL = "https://hotel-liart-three.vercel.app/api";
 const AddUser = () => {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -15,6 +16,10 @@ const AddUser = () => {
     active: true,
     district: "",
   });
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -99,14 +104,18 @@ const AddUser = () => {
               </label>
               <div className="password-input">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Admin@1819"
                   required
                 />
-                <i className="fas fa-eye-slash toggle-password" />
+                <i
+                  className={`fas ${showPassword ? "fa-eye" : "fa-eye-slash"} toggle-password`}
+                  onClick={togglePasswordVisibility}
+                  style={{ cursor: "pointer" }}
+                />
               </div>
             </div>
           </div>
