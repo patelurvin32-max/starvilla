@@ -82,11 +82,48 @@
   font-weight: 600;
   text-decoration: none;
   transition: 0.3s;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
 }
 
 .btn-luxury:hover {
   background: #b8955e;
   color: #000;
+}
+
+/* Tablet and smaller screens */
+@media (max-width: 1199px) {
+  .btn-luxury {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Small tablets */
+@media (max-width: 991px) {
+  .btn-luxury {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 575px) {
+  .btn-luxury {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 375px) {
+  .btn-luxury {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
 }
 
 /* ===============================
@@ -152,8 +189,7 @@
     text-align: center;
   }
 
-  .btn-luxury {
+  .nav-item {
     width: 100%;
-    margin-top: 20px;
   }
 }
